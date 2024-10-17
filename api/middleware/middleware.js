@@ -31,14 +31,24 @@ async function validateUserId(req, res, next) {
 // * ValidateUser validates the body on a request to create or update a user
 // * If the request body lacks the required name field, respond with status 400 and { message: "missing required name field" }
 function validateUser(req, res, next) {
-  // DO YOUR MAGIC
+  const { name } = req.body
+  if (!name || !name.trim()) {
+    next({ status:400, message: "missing required name field" })
+  } else {
+    req.name = name.trim()
+  }
 }
 
 
 // * ValidatePost validates the body on a request to create a new post
 // * If the request body lacks the required text field, respond with status 400 and { message: "missing required text field" }
 function validatePost(req, res, next) {
-  // DO YOUR MAGIC
+  const { text } = req.body
+  if (!text || !text.trim()) {
+    next({ status:400, message: "missing required text field" })
+  } else {
+    req.text = text.trim()
+  }
 }
 
 // do not forget to expose these functions to other modules
