@@ -1,10 +1,9 @@
 const User = require('../users/users-model')
-const Posts = require('../posts/posts-model')
 
 // * Logger logs to the console the following information about each request: request method, request url, and a timestamp
 // * This middleware runs on every request made to the API
 function logger(req, res, next) {
-  console.log(`[${new Date().toLocaleString()}] ${req.method} to ${req.url}`)
+  console.log(`[${new Date().toLocaleString()}] ${req.method} to ${req.originalUrl}`)
   next()
 }
 

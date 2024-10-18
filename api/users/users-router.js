@@ -5,23 +5,28 @@ const Users = require('./users-model')
 const Posts = require('../posts/posts-model')
 
 // The middleware functions also need to be required
-const {logger, validateUserId, validateUser, validatePost} = require('../middleware/middleware')
+const {validateUserId, validateUser, validatePost} = require('../middleware/middleware')
 
 const router = express.Router();
 
 // RETURN AN ARRAY WITH ALL THE USERS
-router.get('/', (req, res) => {
-
+router.get('/', (req, res, next) => {
+  Users.get()
+    .then(users => {
+      res.json(users)
+    })
+    .catch(next)
 });
+
 
 // RETURN THE USER OBJECT
 router.get('/:id', validateUserId, (req, res) => {
-
+  res.json(req.user)
 });
 
 // RETURN THE NEWLY CREATED USER OBJECT
 router.post('/', validateUser, (req, res) => {
-
+  
 });
 
 // RETURN THE FRESHLY UPDATED USER OBJECT
@@ -50,3 +55,4 @@ router.use((error, req, res, next) => {
 })
 
 // do not forget to export the router
+module.exports = router
